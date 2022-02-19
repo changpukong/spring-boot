@@ -30,7 +30,7 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder()
 				.title("Spring Boot練習")
 				.version("1.0")
-				.description("我的第一個Spring Bott練習(X")
+				.description("我的第一個Spring Boot練習(X")
 				.build();
 	}
 }
