@@ -32,7 +32,7 @@ public class TestRedisController {
 		return testRedisCacheService.refreshCards();
 	}
 	
-	@GetMapping(value = "/clearCache", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/clearCache")
 	public void clearCache() {
 		testRedisCacheService.clearCache();
 	}

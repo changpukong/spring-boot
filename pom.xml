@@ -80,7 +80,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<!-- lombok會在編譯時期產生getter、setter等方法，執行時期不需要 -->
+						<!-- lombok是在編譯時期產生getter、setter等方法，所以執行時期不需要 -->
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
