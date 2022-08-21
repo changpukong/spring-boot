@@ -10,7 +10,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-public class DataSourceConfig2 {
+public class HikariDataSourceConfig {
 
 	@Bean
 	@ConfigurationProperties(prefix = "student.oracle")
@@ -22,4 +22,5 @@ public class DataSourceConfig2 {
 	public DataSource memoOracleDataSource() {
 		return new HikariDataSource(memoOracleProperties());
 	}
+	
 }

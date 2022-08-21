@@ -12,15 +12,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class JpaConfig {
+//@Configuration
+public class EntityMapConfig {
 	
 	private static final String PACKAGE_NAME = "yfu.practice.springboot.entity";
 
 	@Bean
 	public Map<String, Class<?>> entityMap() {
+		// 此種寫法打包成jar檔好像會有找不到Entity的問題
 		InputStream inputStream = ClassLoader.getSystemClassLoader()	// 只載入classpath下的class的加載器
 				.getResourceAsStream(PACKAGE_NAME.replace('.', '/'));
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -47,4 +47,5 @@ public class JpaConfig {
 		Table table = clazz.getAnnotation(Table.class);
 		return table != null && !table.name().isEmpty() ? table.name() : clazz.getSimpleName();
 	}
+	
 }

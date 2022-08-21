@@ -1,6 +1,7 @@
 package yfu.practice.springboot.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,6 +34,9 @@ public class YfuMember implements Serializable {
     
     @Column(name = "NAME")
     private String name;
+    
+    @Column(name = "UPD_TIME")
+    private Timestamp updTime;
     
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "editors", cascade = CascadeType.ALL)
     @ToString.Exclude

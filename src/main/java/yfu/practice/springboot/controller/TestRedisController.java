@@ -4,37 +4,64 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import yfu.practice.springboot.dto.TwdDeposit;
 import yfu.practice.springboot.entity.YfuCard;
-import yfu.practice.springboot.service.impl.TestRedisCacheService;
+import yfu.practice.springboot.service.impl.TestRedisCacheSvc;
 
 @RestController
 public class TestRedisController {
 
 	@Autowired
-	private TestRedisCacheService testRedisCacheService;
+	private TestRedisCacheSvc testRedisCacheSvc;
 	
-	@GetMapping(value = "/getAllCards", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/getAllCards", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<YfuCard> getAllCards() {
-		return testRedisCacheService.getAllCards();
+		return testRedisCacheSvc.getAllCards();
 	}
 
-	@GetMapping(value = "/getAllCards/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<YfuCard> getAllCards(@PathVariable("id") int id) {
-		return testRedisCacheService.getAllCards(id);
+	@PostMapping(value = "/getAllCards/{param}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<YfuCard> getAllCards(@PathVariable("param") int param) {
+		return testRedisCacheSvc.getAllCards(param);
 	}
 	
-	@GetMapping(value = "/refreshCards", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/getAllCards/{param}/{param2}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<YfuCard> getAllCards(@PathVariable("param") int param, @PathVariable("param2") int param2) {
+		return testRedisCacheSvc.getAllCards(param, param2);
+	}
+	
+	@PostMapping(value = "/refreshCards", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<YfuCard> refreshCards() {
-		return testRedisCacheService.refreshCards();
+		return testRedisCacheSvc.refreshCards();
 	}
 	
-	@GetMapping(value = "/clearCache")
+	@PostMapping(value = "/clearAllCards")
+	public void clearAllCards() {
+		testRedisCacheSvc.clearAllCards();
+	}
+	
+	@PostMapping(value = "/clearCache")
 	public void clearCache() {
-		testRedisCacheService.clearCache();
+		testRedisCacheSvc.clearCache();
+	}
+	
+	@PostMapping(value = "/getRate/{ccyCode}/{period}")
+	public String getRate(@PathVariable("ccyCode") String ccyCode, @PathVariable("period") String period) {
+		return testRedisCacheSvc.getRate(ccyCode, period);
+	}
+	
+	@PostMapping(value = "/getTestData")
+	public TwdDeposit getTestData(@RequestParam String idNo) {
+		return testRedisCacheSvc.getTestData(idNo);
+	}
+	
+	@PostMapping(value = "/getTestDataWithRedisTemplate")
+	public TwdDeposit getTestDataWithRedisTemplate(@RequestParam String idNo) {
+		return testRedisCacheSvc.getTestDataWithRedisTemplate(idNo);
 	}
 	
 }
