@@ -1,10 +1,9 @@
-package yfu.practice.springboot.generator;
+package yfu.practice.springboot.jpa.generator;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
-
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -36,17 +35,17 @@ public class DateIdGenerator extends SequenceStyleGenerator {
         // type為Entity屬性的型別，但SEQUENCE應該為Long
         super.configure(LongType.INSTANCE, params, serviceRegistry);
         
-        prefixWord = params.getProperty(PREFIX_WORD, "C");
-        seqFormat = params.getProperty(SEQ_FORMAT, "%03d");
-        dateFormat = DateTimeFormatter.ofPattern(params.getProperty(DATE_FORMAT, "yyMMdd"));
+        this.prefixWord = params.getProperty(PREFIX_WORD, "C");
+        this.seqFormat = params.getProperty(SEQ_FORMAT, "%03d");
+        this.dateFormat = DateTimeFormatter.ofPattern(params.getProperty(DATE_FORMAT, "yyMMdd"));
     }
     
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         return new StringBuilder()
-                .append(prefixWord)
-                .append(LocalDate.now().format(dateFormat))
-                .append(String.format(seqFormat, super.generate(session, object)))
+                .append(this.prefixWord)
+                .append(LocalDate.now().format(this.dateFormat))
+                .append(String.format(this.seqFormat, super.generate(session, object)))
                 .toString();
     }
 }

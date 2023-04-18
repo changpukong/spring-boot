@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import yfu.practice.springboot.dto.TwdDeposit;
-import yfu.practice.springboot.entity.YfuCard;
+import yfu.practice.springboot.jpa.entity.Card;
 import yfu.practice.springboot.service.impl.TestRedisCacheSvc;
 
 @RestController
@@ -20,22 +20,22 @@ public class TestRedisController {
 	private TestRedisCacheSvc testRedisCacheSvc;
 	
 	@PostMapping(value = "/getAllCards", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<YfuCard> getAllCards() {
+	public List<Card> getAllCards() {
 		return testRedisCacheSvc.getAllCards();
 	}
 
 	@PostMapping(value = "/getAllCards/{param}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<YfuCard> getAllCards(@PathVariable("param") int param) {
+	public List<Card> getAllCards(@PathVariable("param") int param) {
 		return testRedisCacheSvc.getAllCards(param);
 	}
 	
 	@PostMapping(value = "/getAllCards/{param}/{param2}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<YfuCard> getAllCards(@PathVariable("param") int param, @PathVariable("param2") int param2) {
+	public List<Card> getAllCards(@PathVariable("param") int param, @PathVariable("param2") int param2) {
 		return testRedisCacheSvc.getAllCards(param, param2);
 	}
 	
 	@PostMapping(value = "/refreshCards", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<YfuCard> refreshCards() {
+	public List<Card> refreshCards() {
 		return testRedisCacheSvc.refreshCards();
 	}
 	

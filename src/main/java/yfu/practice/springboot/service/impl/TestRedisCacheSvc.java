@@ -3,17 +3,15 @@ package yfu.practice.springboot.service.impl;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import lombok.extern.slf4j.Slf4j;
 import yfu.practice.springboot.dto.TwdDeposit;
-import yfu.practice.springboot.entity.YfuCard;
+import yfu.practice.springboot.jpa.entity.Card;
 
 @Slf4j
 @Service
@@ -23,14 +21,14 @@ public class TestRedisCacheSvc {
 	private RedisTemplate<String, Object> redisTemplate;
 	
 	@Cacheable(value = "getAllCards")
-	public List<YfuCard> getAllCards() {
+	public List<Card> getAllCards() {
 		log.debug("Get cards from method...");
 	
-		YfuCard card = new YfuCard();
+		Card card = new Card();
 		card.setCardId("001");
 		card.setType("L");
 		
-		YfuCard card2 = new YfuCard();
+		Card card2 = new Card();
 		card2.setCardId("002");
 		card2.setType("M");
 		
@@ -38,14 +36,14 @@ public class TestRedisCacheSvc {
 	}
 
 	@Cacheable(value = "getAllCards", key = "#p0")	// 根據傳入參數使用不同的快取空間
-	public List<YfuCard> getAllCards(int param) {
+	public List<Card> getAllCards(int param) {
 		log.debug("Get cards from method...");
 	
-		YfuCard card = new YfuCard();
+		Card card = new Card();
 		card.setCardId("001");
 		card.setType("L");
 		
-		YfuCard card2 = new YfuCard();
+		Card card2 = new Card();
 		card2.setCardId("002");
 		card2.setType("M");
 		
@@ -53,14 +51,14 @@ public class TestRedisCacheSvc {
 	}
 	
 	@Cacheable(value = "getAllCards")	// key預設使用所有參數
-	public List<YfuCard> getAllCards(int param, int param2) {
+	public List<Card> getAllCards(int param, int param2) {
 		log.debug("Get cards from method...");
 	
-		YfuCard card = new YfuCard();
+		Card card = new Card();
 		card.setCardId("001");
 		card.setType("L");
 		
-		YfuCard card2 = new YfuCard();
+		Card card2 = new Card();
 		card2.setCardId("002");
 		card2.setType("M");
 		
@@ -68,14 +66,14 @@ public class TestRedisCacheSvc {
 	}
 	
 	@CachePut(value = "getAllCards")	// 每次都會更新快取
-	public List<YfuCard> refreshCards() {
+	public List<Card> refreshCards() {
 		log.debug("Refresh cards...");
 	
-		YfuCard card = new YfuCard();
+		Card card = new Card();
 		card.setCardId("003");
 		card.setType("R");
 		
-		YfuCard card2 = new YfuCard();
+		Card card2 = new Card();
 		card2.setCardId("004");
 		card2.setType("R");
 		
@@ -110,9 +108,9 @@ public class TestRedisCacheSvc {
 	}
 	
 	public TwdDeposit getTestDataWithRedisTemplate(String idNo) {
-		String key = "tdm-back-chub-testData";
+		String key = "tdm-back-chub-testData::" + idNo;
 		if (redisTemplate.hasKey(key).booleanValue()) {
-			return (TwdDeposit) redisTemplate.opsForValue().get("tdm-back-chub-testData");
+			return (TwdDeposit) redisTemplate.opsForValue().get(key);
 		}
 		
 		log.info("get data from method...");

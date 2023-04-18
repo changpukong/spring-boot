@@ -11,18 +11,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import yfu.practice.springboot.service.DownloadFileSvc;
-
 /**
  * 下載檔案
  * @author yfu
  */
 @Service
-public class DownloadFileSvcImpl implements DownloadFileSvc {
+public class DownloadFileSvc {
 
     private static final String FILE_DIR = "localDir/";
     
-    @Override
     public ResponseEntity<byte[]> downloadFile(String fileName) throws Exception {
         try (InputStream inputStream = new ClassPathResource(FILE_DIR + fileName).getInputStream()) {
             int size = inputStream.available(); 

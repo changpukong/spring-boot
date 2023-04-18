@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
 import yfu.practice.springboot.dto.TestDto;
-import yfu.practice.springboot.service.DownloadFileSvc;
+import yfu.practice.springboot.service.impl.DownloadFileSvc;
 import yfu.practice.springboot.service.impl.ReceiveFileSvc;
 import yfu.practice.springboot.service.impl.UploadFileSvc;
 

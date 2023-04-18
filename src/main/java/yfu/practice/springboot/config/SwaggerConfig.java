@@ -20,7 +20,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("yfu.practice.springboot.controller"))
+				.apis(RequestHandlerSelectors.basePackage("yfu.practice.springboot"))
 //				.paths(PathSelectors.regex(".*"))	// .: any character
 				.paths(PathSelectors.regex("^(?!/uploadFile).*"))	// (?!=pattern): 指定的pattern都忽略
 				.build();
